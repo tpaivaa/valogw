@@ -1,4 +1,4 @@
-const serialport = require(serial)
+const serialport = require('./serial')
 
 
 // Switches the port into "flowing mode"
