@@ -1,0 +1,14 @@
+[Unit]
+Description=valogw
+Documentation=https://github.com/tpaivaa/valogw
+After=network.target
+
+[Service]
+Type=simple
+User=runner
+ExecStart=/usr/local/bin/node app.js
+WorkingDirectory=/home/runner/valogw/
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
