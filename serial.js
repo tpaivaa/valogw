@@ -24,4 +24,4 @@ port.on('open', function() {
 
 const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }))
 
-module.exports =  port, parser
+module.exports =  {port:port , parser:parser}

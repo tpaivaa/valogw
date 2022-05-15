@@ -1,4 +1,4 @@
-const { port,parser } = require('./serial')
+const { port, parser } = require('./serial')
 
 
 // Switches the port into "flowing mode"
