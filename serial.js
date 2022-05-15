@@ -1,7 +1,7 @@
 const { SerialPort } = require('serialport')
 const port = new SerialPort({
   path: '/dev/ttyUSB1',
-  baudRate: 115200,
+  baudRate: 9600,
   autoOpen: true,
 })
 
