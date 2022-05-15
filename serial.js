@@ -20,4 +20,6 @@ port.on('open', function() {
   console.log('Serial port is open')
 })
 
-module.exports =  port
+const parser = port.pipe(new Readline({ delimiter: '\n' }));
+
+module.exports =  port, parser

@@ -1,7 +1,7 @@
-const serialport = require('./serial')
+const { port,parser } = require('./serial')
 
 
 // Switches the port into "flowing mode"
-serialport.on('data', function (data) {
+parser.on('data', function (data) {
   console.log('Data:', data.toString())
 })
