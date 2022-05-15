@@ -1,5 +1,5 @@
 const { SerialPort } = require('serialport')
-const Readline = require('@serialport/parser-readline')
+const { ReadlineParser } = require('@serialport/parser-readline')
 
 const port = new SerialPort({
   path: '/dev/ttyUSB1',
@@ -22,6 +22,6 @@ port.on('open', function() {
   console.log('Serial port is open')
 })
 
-const parser = port.pipe(new Readline({ delimiter: '\n' }));
+const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }))
 
 module.exports =  port, parser
