@@ -20,4 +20,4 @@ port.on('open', function() {
   console.log('Serial port is open')
 })
 
-export default port
+module.exports =  port
