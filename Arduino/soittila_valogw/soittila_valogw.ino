@@ -12,7 +12,6 @@
  * 10K resistor attached from pin 2 to ground
  */
 
-
 // constants won't change. They're used here to
 // set pin numbers:
 const int verantaSwitch1 = 2;   // Verannan kytkin 1 input
@@ -31,6 +30,7 @@ const int ulkoLight = 13;       // Ulkovalo ja kytkimen4 led output
 String rstate = "";          // a string to hold returned state on function returnstate()
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
+String endMarker = ";"
 
 // Variables will change:
 int verantaLightState = HIGH; // the current state of the veranta light
@@ -70,7 +70,7 @@ long debounceDelay = 100;    // the debounce time; increase if the output flicke
 
 void setup() {
   // initialize serial:
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("Serial Init");
   // Flush switch states to serial connection
   Serial.print("sw1:");
@@ -113,6 +113,7 @@ void setup() {
 }
 
 void loop() {
+
   // read the state of the switch into a local variable:
   int sw1reading = digitalRead(verantaSwitch1);
   int sw2reading = digitalRead(verantaSwitch2);
@@ -251,54 +252,35 @@ void loop() {
   }
   
   if (stringComplete) {
-    if (inputString == "1setON;") {
-      digitalWrite(verantaLight, LOW);
-      returnstate(1, 1);
+    if (inputString == "1toggle;") {
+      verantaLightState = !verantaLightState;
+      switch1State = !switch1State;
+      returnstate(1, verantaLightState);
     }
-    if (inputString == "2setON;") {
-      digitalWrite(out2, LOW);
-      returnstate(2, 1);
+    if (inputString == "2toggle;") {
+      light2State = !light2State;
+      switch2State = !switch2State;
+      returnstate(2, light2State);
     }
-    if (inputString == "3setON;") {
-      digitalWrite(out3, LOW);
-      returnstate(3, 1);
+    if (inputString == "3toggle;") {
+      light3State = !light3State;
+      switch3State = !switch3State;
+      returnstate(3, light3State);
     }
-    if (inputString == "4setON;") {
-      digitalWrite(ulkoLight, LOW);
-      returnstate(4, 1);
+    if (inputString == "4toggle;") {
+      ulkoLightState = !ulkoLightState;
+      switch4State = !switch4State;
+      returnstate(4, ulkoLightState);
     }
-    if (inputString == "5setON;") {
-      digitalWrite(ykMHLight, LOW);
-      returnstate(5, 1);
+    if (inputString == "5toggle;") {
+      ykmhLightState = !ykmhLightState;
+      ykmhswitch1State = !ykmhswitch1State;
+      returnstate(5, ykmhLightState);
     }
-    if (inputString == "6setON;") {
-      digitalWrite(ykPHLight, LOW);
-      returnstate(5, 1);
-    }
-
-    if (inputString == "1setOFF;") {
-      digitalWrite(verantaLight, HIGH);
-      returnstate(1, 0);
-    }
-    if (inputString == "2setOFF;") {
-      digitalWrite(out2, HIGH);
-      returnstate(2, 0);
-    }
-    if (inputString == "3setOFF;") {
-      digitalWrite(out3, HIGH);
-      returnstate(3, 0);
-    }
-    if (inputString == "4setOFF;") {
-      digitalWrite(ulkoLight, HIGH);
-      returnstate(4, 0);
-    }
-    if (inputString == "5setOFF;") {
-      digitalWrite(ykMHLight, HIGH);
-      returnstate(5, 0);
-    }
-    if (inputString == "6setOFF;") {
-      digitalWrite(ykPHLight, HIGH);
-      returnstate(5, 0);
+    if (inputString == "6toggle;") {
+      ykphLightState = !ykphLightState;
+      ykmhswitch3State = !ykmhswitch3State;
+      returnstate(6, ykphLightState);
     }
   
     if (inputString == "1status;") {
@@ -341,7 +323,63 @@ void loop() {
   lastykmhswitch1State = sw5reading;
   lastykmhswitch3State = sw6reading;
   
+  getDataFromPC();
 }
+
+//=============
+
+void getDataFromPC() {
+
+    // receive data from PC and save it into inputBuffer
+    
+  if(Serial.available() > 0) {
+
+    char x = Serial.read();
+
+      // the order of these IF clauses is significant
+      
+    if (x == endMarker) {
+      readInProgress = false;
+      newDataFromPC = true;
+      inputBuffer[bytesRecvd] = 0;
+      parseData();
+    }
+    
+    if(readInProgress) {
+      inputBuffer[bytesRecvd] = x;
+      bytesRecvd ++;
+      if (bytesRecvd == buffSize) {
+        bytesRecvd = buffSize - 1;
+      }
+    }
+
+    if (x == startMarker) { 
+      bytesRecvd = 0; 
+      readInProgress = true;
+    }
+  }
+}
+
+//=============
+ 
+void parseData() {
+
+    // split the data into its parts
+    
+  char * strtokIndx; // this is used by strtok() as an index
+  
+  strtokIndx = strtok(inputBuffer,",");      // get the first part - the string
+  strcpy(messageFromPC, strtokIndx); // copy it to messageFromPC
+  
+  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
+  newFlashInterval = atoi(strtokIndx);     // convert this part to an integer
+  
+  strtokIndx = strtok(NULL, ","); 
+  servoFraction = atof(strtokIndx);     // convert this part to a float
+
+}
+
+//=============
 
 void serialEvent() {
   while (Serial.available()) {
