@@ -30,7 +30,6 @@ const int ulkoLight = 13;       // Ulkovalo ja kytkimen4 led output
 String rstate = "";          // a string to hold returned state on function returnstate()
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
-String endMarker = ";"
 
 // Variables will change:
 int verantaLightState = HIGH; // the current state of the veranta light
@@ -322,64 +321,8 @@ void loop() {
   lastSwitch4State = sw4reading;
   lastykmhswitch1State = sw5reading;
   lastykmhswitch3State = sw6reading;
-  
-  getDataFromPC();
-}
-
-//=============
-
-void getDataFromPC() {
-
-    // receive data from PC and save it into inputBuffer
-    
-  if(Serial.available() > 0) {
-
-    char x = Serial.read();
-
-      // the order of these IF clauses is significant
-      
-    if (x == endMarker) {
-      readInProgress = false;
-      newDataFromPC = true;
-      inputBuffer[bytesRecvd] = 0;
-      parseData();
-    }
-    
-    if(readInProgress) {
-      inputBuffer[bytesRecvd] = x;
-      bytesRecvd ++;
-      if (bytesRecvd == buffSize) {
-        bytesRecvd = buffSize - 1;
-      }
-    }
-
-    if (x == startMarker) { 
-      bytesRecvd = 0; 
-      readInProgress = true;
-    }
-  }
-}
-
-//=============
- 
-void parseData() {
-
-    // split the data into its parts
-    
-  char * strtokIndx; // this is used by strtok() as an index
-  
-  strtokIndx = strtok(inputBuffer,",");      // get the first part - the string
-  strcpy(messageFromPC, strtokIndx); // copy it to messageFromPC
-  
-  strtokIndx = strtok(NULL, ","); // this continues where the previous call left off
-  newFlashInterval = atoi(strtokIndx);     // convert this part to an integer
-  
-  strtokIndx = strtok(NULL, ","); 
-  servoFraction = atof(strtokIndx);     // convert this part to a float
 
 }
-
-//=============
 
 void serialEvent() {
   while (Serial.available()) {
