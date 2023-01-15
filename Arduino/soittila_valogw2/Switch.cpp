@@ -124,7 +124,7 @@ void Switch::toggleOutputState() {
 void Switch::printStatus() {
     Serial.print("Switch ");
     Serial.print(id);
-    if (outputState) {
+    if (!outputState) {
         Serial.println(" is on");
     } else {
         Serial.println(" is off");
