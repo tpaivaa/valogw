@@ -1,5 +1,6 @@
 #include "Switch.h"
 #include <Arduino.h>
+#include <ArduinoJson.h>
 
 
 Switch::Switch(int input, int output, int debounce, int switchId, int *switchIds) {
@@ -53,63 +54,6 @@ void Switch::update() {
   lastInputState = currentState;
 }
 
-// void Switch::serialControl(int index) {
-//     if (Serial.available() > 0) {
-//         char input = Serial.read();
-//         // Serial.print("Received: ");
-//         // Serial.println(input);
-//         if (input == 's') {
-//             input = Serial.read();
-//             int switchId = input - '0';
-//             // Serial.print("Received: ");
-//             // Serial.println(input);
-//             Serial.print("switchId: ");
-//             Serial.println(switchId);
-//             Serial.print("Id: ");
-//             Serial.println(this->id);
-//             // Serial.print("inputPin: ");
-//             // Serial.println(this->inputPin);
-//             // Serial.print("Received: ");
-//             // Serial.println(input);
-//             // Serial.print("id: ");
-//             // Serial.println(switchIds[index]);
-//             if (switchId == this->id) {
-//                 input = Serial.read();
-//                 Serial.print("Received: ");
-//                 Serial.println(input);
-//                 if (input == '1') {
-//                     outputState = LOW;
-//                     digitalWrite(outputPin, outputState);
-//                 } else if (input == '0') {
-//                     outputState = HIGH;
-//                     digitalWrite(outputPin, outputState);
-//                 } else if (input == 't') {
-//                     outputState = !outputState;
-//                     digitalWrite(outputPin, outputState);
-//                 } else if (input == 'r') {
-//                         Serial.print("Switch ");
-//                         Serial.print(id);
-//                         if (outputState) {
-//                             Serial.print(" ");
-//                             Serial.print(outputState);
-//                             Serial.println(" is on");
-//                         } else {
-//                             Serial.print(" ");
-//                             Serial.print(outputState);
-//                             Serial.println(" is off");
-//                         }
-//                 }
-//                 Serial.print("Switch ");
-//                 Serial.print(id);
-//                 if (!outputState) {
-//                     Serial.println(" turned on");
-//                 } else {
-//                     Serial.println(" turned off");
-//                 }
-//             }
-//         }
-//     }
-// }
 
 void Switch::setOutputState(bool state) {
     outputState = state;
@@ -129,6 +73,19 @@ void Switch::printStatus() {
     } else {
         Serial.println(" is off");
     }
+}
+
+void Switch::printStatusJSON() {
+    StaticJsonDocument<200> doc;
+    doc["switchId"] = id;
+    doc["outputState"] = outputState;
+
+    // Serialize the JSON object
+    char buffer[200];
+    serializeJson(doc, buffer);
+
+    // Send the serialized JSON over the serial port
+    Serial.println(buffer);
 }
 
 

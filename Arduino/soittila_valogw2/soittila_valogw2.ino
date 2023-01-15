@@ -54,6 +54,8 @@ void handleSerialInput() {
                         switches[i]->toggleOutputState();
                     } else if (input == 'r') {
                         switches[i]->printStatus();
+                    } else if (input == 'j') {
+                        switches[i]->printStatusJSON();
                     }
                 }
             }

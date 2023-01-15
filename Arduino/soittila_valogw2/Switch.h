@@ -20,6 +20,7 @@ class Switch {
     void setOutputState(bool state);
     void toggleOutputState();
     void printStatus();
+    void printStatusJSON();
 };
 
 #endif
