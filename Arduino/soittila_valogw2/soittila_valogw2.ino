@@ -36,14 +36,14 @@ void setup() {
     int inputPins[numSwitches] = {2, 3, 4, 5, 6, 7, 14};
     int outputPins[numSwitches] = {10,11,12,13,8,9,15};
     for (int i = 0; i < numSwitches; i++) {
-        switches[i] = new Switch(inputPins[i], outputPins[i], 100, switchIds[i]);
+        switches[i] = new Switch(inputPins[i], outputPins[i], 100, switchIds[i], switchIds);
     }
 }
 
 void loop() {
     for (int i = 0; i < numSwitches; i++) {
         switches[i]->update();
-        switches[i]->serialControl();
+        switches[i]->serialControl(i);
     }
     delay(10);
 }

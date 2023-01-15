@@ -2,7 +2,7 @@
 #include <Arduino.h>
 
 
-Switch::Switch(int input, int output, int debounce, int switchId) {
+Switch::Switch(int input, int output, int debounce, int switchId, int* switchIds) {
     // Assign the constructor arguments to class variables
     inputPin = input;
     outputPin = output;
@@ -52,7 +52,7 @@ void Switch::update() {
   lastInputState = currentState;
 }
 
-void Switch::serialControl() {
+void Switch::serialControl(int index) {
     if (Serial.available() > 0) {
         char input = Serial.read();
         // Serial.print("Received: ");
@@ -64,7 +64,7 @@ void Switch::serialControl() {
             // Serial.println(input);
             // Serial.print("switchId: ");
             // Serial.println(switchId);
-            if (switchId == id && switchId > 0) {
+            if (switchId == id) {
                 input = Serial.read();
                 // Serial.print("Received: ");
                 // Serial.println(input);
@@ -78,16 +78,18 @@ void Switch::serialControl() {
                     outputState = !outputState;
                     digitalWrite(outputPin, outputState);
                 } else if (input == 'r') {
-                    Serial.print("Switch ");
-                    Serial.print(id);
-                    if (outputState) {
-                        Serial.print(" ");
-                        Serial.print(outputState);
-                        Serial.println(" is on");
-                    } else {
-                        Serial.print(" ");
-                        Serial.print(outputState);
-                        Serial.println(" is off");
+                    if (this->switchIds[index] == id) {
+                        Serial.print("Switch ");
+                        Serial.print(id);
+                        if (outputState) {
+                            Serial.print(" ");
+                            Serial.print(outputState);
+                            Serial.println(" is on");
+                        } else {
+                            Serial.print(" ");
+                            Serial.print(outputState);
+                            Serial.println(" is off");
+                        }
                     }
                 }
                 // Serial.print("Switch ");
