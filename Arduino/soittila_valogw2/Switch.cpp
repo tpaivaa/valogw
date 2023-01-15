@@ -68,16 +68,30 @@ void Switch::serialControl() {
                 } else if (input == 't') {
                     outputState = !outputState;
                     digitalWrite(outputPin, outputState);
+                } else if (input == 'r') {
+                    Serial.print("Switch ");
+                    Serial.print(id);
+                    if (outputState) {
+                        Serial.print(" ");
+                        Serial.print(outputState);
+                        Serial.println(" is on");
+                    } else {
+                        Serial.print(" ");
+                        Serial.print(outputState);
+                        Serial.println(" is off");
+
+                    }
                 }
+                Serial.print("Switch ");
+                Serial.print(id);
+                if (outputState) {
+                    Serial.println(" turned on");
+                } else {
+                    Serial.println(" turned off");
+                  }
             }
         }
-      Serial.print("Switch ");
-      Serial.print(id);
-      if (outputState) {
-          Serial.println(" turned on");
-      } else {
-          Serial.println(" turned off");
-        }
+
     }
 }
 
