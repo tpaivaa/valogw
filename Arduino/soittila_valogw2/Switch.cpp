@@ -11,6 +11,7 @@ Switch::Switch(int input, int output, int debounce, int switchId) {
 
     // Configure the input and output pins
     pinMode(inputPin, INPUT_PULLUP);
+    digitalWrite(outputPin, HIGH);
     pinMode(outputPin, OUTPUT);
 
     // Read the initial state of the input pin
@@ -21,7 +22,7 @@ Switch::Switch(int input, int output, int debounce, int switchId) {
     lastDebounceTime = 0;
 
     // Initialize the output state
-    outputState = false;
+    outputState = true;
 }
 
 void Switch::update() {
@@ -39,7 +40,7 @@ void Switch::update() {
         digitalWrite(outputPin, outputState);
         Serial.print("Switch ");
         Serial.print(id);
-        if (outputState) {
+        if (!outputState) {
             Serial.println(" turned on");
         } else {
             Serial.println(" turned off");
@@ -59,11 +60,12 @@ void Switch::serialControl() {
             int switchId = input - '0';
             if (switchId == id) {
                 input = Serial.read();
+                Serial.println(input);
                 if (input == '1') {
-                    outputState = false;
+                    outputState = LOW;
                     digitalWrite(outputPin, outputState);
                 } else if (input == '0') {
-                    outputState = true;
+                    outputState = HIGH;
                     digitalWrite(outputPin, outputState);
                 } else if (input == 't') {
                     outputState = !outputState;
