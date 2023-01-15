@@ -2,12 +2,13 @@
 #include <Arduino.h>
 
 
-Switch::Switch(int input, int output, int debounce, int switchId, int* switchIds) {
+Switch::Switch(int input, int output, int debounce, int switchId, int *switchIds) {
     // Assign the constructor arguments to class variables
     inputPin = input;
     outputPin = output;
     debounceDelay = debounce;
     id = switchId;
+    switchIds = *switchIds;
 
     // Configure the input and output pins
     pinMode(inputPin, INPUT_PULLUP);
@@ -52,7 +53,7 @@ void Switch::update() {
   lastInputState = currentState;
 }
 
-void Switch::serialControl(int index) {
+void Switch::serialControl() {
     if (Serial.available() > 0) {
         char input = Serial.read();
         // Serial.print("Received: ");
@@ -60,11 +61,15 @@ void Switch::serialControl(int index) {
         if (input == 's') {
             input = Serial.read();
             int switchId = input - '0';
-            // Serial.print("Received: ");
-            // Serial.println(input);
-            // Serial.print("switchId: ");
-            // Serial.println(switchId);
-            if (this->switchIds[index] == id) {
+            Serial.print("Received: ");
+            Serial.println(input);
+            Serial.print("switchId: ");
+            Serial.println(switchId);
+            Serial.print("Id: ");
+            Serial.println(id);
+            Serial.print("inputPin: ");
+            Serial.println(this->inputPin);
+            if (id == switchId) {
                 input = Serial.read();
                 Serial.print("Received: ");
                 Serial.println(input);
@@ -92,7 +97,7 @@ void Switch::serialControl(int index) {
                 }
                 Serial.print("Switch ");
                 Serial.print(id);
-                if (outputState) {
+                if (!outputState) {
                     Serial.println(" turned on");
                 } else {
                     Serial.println(" turned off");

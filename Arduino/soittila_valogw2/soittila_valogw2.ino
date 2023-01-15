@@ -19,15 +19,7 @@ const int ykMH2LightIn = 14;        // Yk mh2 valo input pin
 const int ykMH2LightOut = 15;       // Yk mh2 valo output pin
 
 
-int switchIds[numSwitches] = {
-                                        1,
-                                        2,
-                                        3,
-                                        4,
-                                        5,
-                                        6,
-                                        7
-                                        };
+int switchIds[numSwitches] = {1,2,3,4,5,6,7};
 
 Switch *switches[numSwitches];
 
@@ -43,7 +35,7 @@ void setup() {
 void loop() {
     for (int i = 0; i < numSwitches; i++) {
         switches[i]->update();
-        switches[i]->serialControl(switchIds[i]);
+        switches[i]->serialControl();
     }
-    delay(10);
+    delay(100);
 }
