@@ -53,7 +53,7 @@ void Switch::update() {
   lastInputState = currentState;
 }
 
-void Switch::serialControl() {
+void Switch::serialControl(int index) {
     if (Serial.available() > 0) {
         char input = Serial.read();
         // Serial.print("Received: ");
@@ -69,7 +69,11 @@ void Switch::serialControl() {
             Serial.println(id);
             Serial.print("inputPin: ");
             Serial.println(this->inputPin);
-            if (id == switchId) {
+            // Serial.print("Received: ");
+            // Serial.println(input);
+            Serial.print("id: ");
+            Serial.println(this->switchIds[index]);
+            if (this->switchIds[index] == switchId) {
                 input = Serial.read();
                 Serial.print("Received: ");
                 Serial.println(input);
