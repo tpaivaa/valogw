@@ -96,10 +96,9 @@ void Switch::serialControl() {
                     Serial.println(" turned on");
                 } else {
                     Serial.println(" turned off");
-                  }
+                }
             }
         }
-
     }
 }
 
