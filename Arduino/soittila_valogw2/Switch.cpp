@@ -55,6 +55,8 @@ void Switch::update() {
 void Switch::serialControl() {
     if (Serial.available() > 0) {
         char input = Serial.read();
+        Serial.print("Received: ");
+        Serial.println(input);
         if (input == 's') {
             input = Serial.read();
             int switchId = input - '0';
