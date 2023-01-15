@@ -72,8 +72,8 @@ void Switch::serialControl(int index) {
             // Serial.print("Received: ");
             // Serial.println(input);
             Serial.print("id: ");
-            Serial.println(this->switchIds[index]);
-            if (this->switchIds[index] == switchId) {
+            Serial.println(switchIds[index]);
+            if (switchId == switchIds[index]) {
                 input = Serial.read();
                 Serial.print("Received: ");
                 Serial.println(input);
