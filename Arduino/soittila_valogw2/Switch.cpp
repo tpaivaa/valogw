@@ -64,7 +64,7 @@ void Switch::serialControl() {
             // Serial.println(input);
             // Serial.print("switchId: ");
             // Serial.println(switchId);
-            if (switchId == id && switchId > 0 && switchId <= numSwitches) {
+            if (switchId == id && switchId > 0) {
                 input = Serial.read();
                 // Serial.print("Received: ");
                 // Serial.println(input);
