@@ -55,19 +55,19 @@ void Switch::update() {
 void Switch::serialControl() {
     if (Serial.available() > 0) {
         char input = Serial.read();
-        Serial.print("Received: ");
-        Serial.println(input);
+        // Serial.print("Received: ");
+        // Serial.println(input);
         if (input == 's') {
             input = Serial.read();
             int switchId = input - '0';
-            Serial.print("Received: ");
-            Serial.println(input);
-            Serial.print("switchId: ");
-            Serial.println(switchId);
-            if (switchId == id) {
+            // Serial.print("Received: ");
+            // Serial.println(input);
+            // Serial.print("switchId: ");
+            // Serial.println(switchId);
+            if (switchId == id && switchId > 0 && switchId <= numSwitches) {
                 input = Serial.read();
-                Serial.print("Received: ");
-                Serial.println(input);
+                // Serial.print("Received: ");
+                // Serial.println(input);
                 if (input == '1') {
                     outputState = LOW;
                     digitalWrite(outputPin, outputState);
@@ -90,13 +90,13 @@ void Switch::serialControl() {
                         Serial.println(" is off");
                     }
                 }
-                Serial.print("Switch ");
-                Serial.print(id);
-                if (outputState) {
-                    Serial.println(" turned on");
-                } else {
-                    Serial.println(" turned off");
-                }
+                // Serial.print("Switch ");
+                // Serial.print(id);
+                // if (outputState) {
+                //     Serial.println(" turned on");
+                // } else {
+                //     Serial.println(" turned off");
+                // }
             }
         }
     }
