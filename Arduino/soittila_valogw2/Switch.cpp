@@ -8,7 +8,7 @@ Switch::Switch(int input, int output, int debounce, int switchId, int *switchIds
     outputPin = output;
     debounceDelay = debounce;
     id = switchId;
-    switchIds = *switchIds;
+    this->switchIds = switchIds;
 
     // Configure the input and output pins
     pinMode(inputPin, INPUT_PULLUP);
