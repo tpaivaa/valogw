@@ -4,10 +4,10 @@
 
 Switch::Switch(int input, int output, int debounce, int switchId, int *switchIds) {
     // Assign the constructor arguments to class variables
-    inputPin = input;
-    outputPin = output;
-    debounceDelay = debounce;
-    id = switchId;
+    this->inputPin = input;
+    this->outputPin = output;
+    this->debounceDelay = debounce;
+    this->id = switchId;
     this->switchIds = switchIds;
 
     // Configure the input and output pins
@@ -16,14 +16,14 @@ Switch::Switch(int input, int output, int debounce, int switchId, int *switchIds
     pinMode(outputPin, OUTPUT);
 
     // Read the initial state of the input pin
-    inputState = digitalRead(inputPin);
-    lastInputState = inputState;
+    this->inputState = digitalRead(inputPin);
+    this->lastInputState = inputState;
 
     // Initialize the debounce time
-    lastDebounceTime = 0;
+    this->lastDebounceTime = 0;
 
     // Initialize the output state
-    outputState = true;
+    this->outputState = true;
 }
 
 void Switch::update() {
@@ -61,19 +61,19 @@ void Switch::serialControl(int index) {
         if (input == 's') {
             input = Serial.read();
             int switchId = input - '0';
-            Serial.print("Received: ");
-            Serial.println(input);
+            // Serial.print("Received: ");
+            // Serial.println(input);
             Serial.print("switchId: ");
             Serial.println(switchId);
             Serial.print("Id: ");
-            Serial.println(id);
-            Serial.print("inputPin: ");
-            Serial.println(this->inputPin);
+            Serial.println(this->id);
+            // Serial.print("inputPin: ");
+            // Serial.println(this->inputPin);
             // Serial.print("Received: ");
             // Serial.println(input);
-            Serial.print("id: ");
-            Serial.println(switchIds[index]);
-            if (switchId == switchIds[index]) {
+            // Serial.print("id: ");
+            // Serial.println(switchIds[index]);
+            if (switchId == this->id) {
                 input = Serial.read();
                 Serial.print("Received: ");
                 Serial.println(input);
