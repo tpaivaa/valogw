@@ -79,7 +79,6 @@ void Switch::serialControl() {
                         Serial.print(" ");
                         Serial.print(outputState);
                         Serial.println(" is off");
-
                     }
                 }
                 Serial.print("Switch ");
