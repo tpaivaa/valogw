@@ -57,6 +57,9 @@ void Switch::serialControl() {
     int switchId = input - '0';
     if (switchId == id) {
       input = Serial.read();
+      Serial.print("Received: ");
+      Serial.print(input);
+      Serial.print('\n');
       if (input == '1') {
         outputState = true;
         digitalWrite(outputPin, outputState);
