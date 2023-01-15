@@ -52,25 +52,26 @@ void Switch::update() {
 }
 
 void Switch::serialControl() {
-  if (Serial.available() > 0) {
-    char input = Serial.read();
-    int switchId = input - '0';
-    if (switchId == id) {
-      input = Serial.read();
-      Serial.print("Received: ");
-      Serial.print(input);
-      Serial.print('\n');
-      if (input == '1') {
-        outputState = true;
-        digitalWrite(outputPin, outputState);
-      } else if (input == '0') {
-        outputState = false;
-        digitalWrite(outputPin, outputState);
-      } else if (input == 't') {
-        outputState = !outputState;
-        digitalWrite(outputPin, outputState);
-      }
+    if (Serial.available() > 0) {
+        char input = Serial.read();
+        if (input == 's') {
+            input = Serial.read();
+            int switchId = input - '0';
+            if (switchId == id) {
+                input = Serial.read();
+                if (input == '1') {
+                    outputState = true;
+                    digitalWrite(outputPin, outputState);
+                } else if (input == '0') {
+                    outputState = false;
+                    digitalWrite(outputPin, outputState);
+                } else if (input == 't') {
+                    outputState = !outputState;
+                    digitalWrite(outputPin, outputState);
+                }
+            }
+        }
     }
-  }
 }
+
 
