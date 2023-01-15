@@ -1,0 +1,11 @@
+
+Implementation of Soittila valoGW
+
+We have multiple physical switches which controls lights.
+also need to control lights externally
+here we use serial communication between Arduino and raspberry pi
+
+
+
+
+Also, you can use the switchName to control the switch instances through serial input, you will need to send the switchName followed by the command. For example, to toggle the switch with the switchName "switch1", you would send "switch1 t" over the serial connection.
