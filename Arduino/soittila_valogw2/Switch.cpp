@@ -43,7 +43,7 @@ void Switch::update() {
             Serial.println(" turned on");
         } else {
             Serial.println(" turned off");
-            }
+          }
       }
     }
   }
@@ -60,16 +60,23 @@ void Switch::serialControl() {
             if (switchId == id) {
                 input = Serial.read();
                 if (input == '1') {
-                    outputState = true;
+                    outputState = false;
                     digitalWrite(outputPin, outputState);
                 } else if (input == '0') {
-                    outputState = false;
+                    outputState = true;
                     digitalWrite(outputPin, outputState);
                 } else if (input == 't') {
                     outputState = !outputState;
                     digitalWrite(outputPin, outputState);
                 }
             }
+        }
+      Serial.print("Switch ");
+      Serial.print(id);
+      if (outputState) {
+          Serial.println(" turned on");
+      } else {
+          Serial.println(" turned off");
         }
     }
 }
