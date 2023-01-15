@@ -64,7 +64,7 @@ void Switch::serialControl(int index) {
             // Serial.println(input);
             // Serial.print("switchId: ");
             // Serial.println(switchId);
-            if (switchId == id) {
+            if (this->switchIds[index] == id) {
                 input = Serial.read();
                 Serial.print("Received: ");
                 Serial.println(input);
@@ -78,8 +78,6 @@ void Switch::serialControl(int index) {
                     outputState = !outputState;
                     digitalWrite(outputPin, outputState);
                 } else if (input == 'r') {
-
-                    if (this->switchIds[index] == id) {
                         Serial.print("Switch ");
                         Serial.print(id);
                         if (outputState) {
@@ -91,7 +89,6 @@ void Switch::serialControl(int index) {
                             Serial.print(outputState);
                             Serial.println(" is off");
                         }
-                    }
                 }
                 Serial.print("Switch ");
                 Serial.print(id);
