@@ -37,6 +37,13 @@ void Switch::update() {
       if (inputState == LOW) {
         outputState = !outputState;
         digitalWrite(outputPin, outputState);
+        Serial.print("Switch ");
+        Serial.print(id);
+        if (outputState) {
+            Serial.println(" turned on");
+        } else {
+            Serial.println(" turned off");
+            }
       }
     }
   }
