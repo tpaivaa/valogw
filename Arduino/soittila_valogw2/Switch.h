@@ -17,7 +17,9 @@ class Switch {
   public:
     Switch(int input, int output, int debounce,  int switchId, int *switchIds);
     void update();
-    void serialControl(int index);
+    void setOutputState(bool state);
+    void toggleOutputState();
+    void printStatus();
 };
 
 #endif
