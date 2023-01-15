@@ -43,7 +43,7 @@ void setup() {
 void loop() {
     for (int i = 0; i < numSwitches; i++) {
         switches[i]->update();
-        switches[i]->serialControl(i);
+        switches[i]->serialControl(switchIds[i]);
     }
     delay(10);
 }
