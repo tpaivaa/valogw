@@ -60,8 +60,13 @@ void Switch::serialControl() {
         if (input == 's') {
             input = Serial.read();
             int switchId = input - '0';
+            Serial.print("Received: ");
+            Serial.println(input);
+            Serial.print("switchId: ");
+            Serial.println(switchId);
             if (switchId == id) {
                 input = Serial.read();
+                Serial.print("Received: ");
                 Serial.println(input);
                 if (input == '1') {
                     outputState = LOW;
