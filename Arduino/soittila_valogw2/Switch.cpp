@@ -78,7 +78,7 @@ void Switch::printStatus() {
 void Switch::printStatusJSON() {
     StaticJsonDocument<200> doc;
     doc["switchId"] = id;
-    doc["outputState"] = outputState;
+    doc["outputState"] = !outputState;
 
     // Serialize the JSON object
     char buffer[200];
