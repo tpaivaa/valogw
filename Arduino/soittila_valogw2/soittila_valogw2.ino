@@ -23,6 +23,7 @@ Switch *switches[numSwitches];
 
 void setup() {
     Serial.begin(115200);
+    Serial1.begin(115200);
     int inputPins[numSwitches] = {verantaLightIn, parvekeLightIn, ykAulaLightIn, ulkoLightIn, ykMH1LightIn, ykPHLightIn, ykMH2LightIn};
     int outputPins[numSwitches] = {verantaLightOut, parvekeLightOut, ykAulaLightOut, ulkoLightOut, ykMH1LightOut, ykPHLightOut, ykMH2LightOut};
     for (int i = 0; i < numSwitches; i++) {
@@ -62,4 +63,32 @@ void handleSerialInput() {
             }
         }
     }
+    if (Serial1.available() > 0) {
+    char input[256];
+    int i = 0;
+    while(Serial1.available()){
+        input[i] = (char)Serial1.read();
+        i++;
+    }
+    input[i] = '\0';
+    DynamicJsonDocument jsonDoc(1024);
+    DeserializationError error = deserializeJson(jsonDoc, input);
+    if (!error) {
+        int switchId = jsonDoc["switchId"];
+        String outputStateString = jsonDoc["outputState"];
+        for (int i = 0; i < numSwitches; i++) {
+            if (switchIds[i] == switchId) {
+                if (outputStateString == "1") {
+                    switches[i]->setOutputState(LOW);
+                } else if (outputStateString == "0") {
+                    switches[i]->setOutputState(HIGH);
+                } else if (outputStateString == "toggle") {
+                    switches[i]->toggleOutputState();
+                } else if (outputStateString == "query") {
+                    switches[i]->printStatusJSON();
+                }
+            }
+        }
+    }
+}
 }
