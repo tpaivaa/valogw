@@ -24,7 +24,7 @@ Switch *switches[numSwitches];
 
 void setup() {
     Serial.begin(115200);
-    Serial1.begin(115200);
+    Serial2.begin(115200);
     int inputPins[numSwitches] = {verantaLightIn, parvekeLightIn, ykAulaLightIn, ulkoLightIn, ykMH1LightIn, ykPHLightIn, ykMH2LightIn};
     int outputPins[numSwitches] = {verantaLightOut, parvekeLightOut, ykAulaLightOut, ulkoLightOut, ykMH1LightOut, ykPHLightOut, ykMH2LightOut};
     for (int i = 0; i < numSwitches; i++) {
@@ -64,11 +64,11 @@ void handleSerialInput() {
             }
         }
     }
-    if (Serial1.available() > 0) {
+    if (Serial2.available() > 0) {
     char input[256];
     int i = 0;
-    while(Serial1.available()){
-        input[i] = (char)Serial1.read();
+    while(Serial2.available()){
+        input[i] = (char)Serial2.read();
         i++;
     }
     input[i] = '\0';
