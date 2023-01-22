@@ -65,31 +65,31 @@ void handleSerialInput() {
         }
     }
     if (Serial2.available() > 0) {
-    char input[256];
-    int i = 0;
-    while(Serial2.available()){
-        input[i] = (char)Serial2.read();
-        i++;
-    }
-    input[i] = '\0';
-    DynamicJsonDocument jsonDoc(1024);
-    DeserializationError error = deserializeJson(jsonDoc, input);
-    if (!error) {
-        int switchId = jsonDoc["switchId"];
-        String outputStateString = jsonDoc["outputState"];
-        for (int i = 0; i < numSwitches; i++) {
-            if (switchIds[i] == switchId) {
-                if (outputStateString == "1") {
-                    switches[i]->setOutputState(LOW);
-                } else if (outputStateString == "0") {
-                    switches[i]->setOutputState(HIGH);
-                } else if (outputStateString == "toggle") {
-                    switches[i]->toggleOutputState();
-                } else if (outputStateString == "query") {
-                    switches[i]->printStatusJSON();
+        char input[256];
+        int i = 0;
+        while(Serial2.available()){
+            input[i] = (char)Serial2.read();
+            i++;
+        }
+        input[i] = '\0';
+        DynamicJsonDocument jsonDoc(1024);
+        DeserializationError error = deserializeJson(jsonDoc, input);
+        if (!error) {
+            int switchId = jsonDoc["switchId"];
+            String outputStateString = jsonDoc["outputState"];
+            for (int i = 0; i < numSwitches; i++) {
+                if (switchIds[i] == switchId) {
+                    if (outputStateString == "1") {
+                        switches[i]->setOutputState(LOW);
+                    } else if (outputStateString == "0") {
+                        switches[i]->setOutputState(HIGH);
+                    } else if (outputStateString == "toggle") {
+                        switches[i]->toggleOutputState();
+                    } else if (outputStateString == "query") {
+                        switches[i]->printStatusJSON();
+                    }
                 }
             }
         }
     }
-}
 }
