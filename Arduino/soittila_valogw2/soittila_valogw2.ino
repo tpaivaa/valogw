@@ -1,4 +1,5 @@
 #include "Switch.h" // include the header file for the Switch class
+#include <ArduinoJson.h>
 
 const int numSwitches = 7;
 const int verantaLightIn = 22;
