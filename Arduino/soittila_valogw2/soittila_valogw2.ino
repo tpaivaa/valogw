@@ -25,6 +25,7 @@ Switch *switches[numSwitches];
 void setup() {
     Serial.begin(115200);
     Serial2.begin(115200);
+    Serial2.println("Connection...");
     int inputPins[numSwitches] = {verantaLightIn, parvekeLightIn, ykAulaLightIn, ulkoLightIn, ykMH1LightIn, ykPHLightIn, ykMH2LightIn};
     int outputPins[numSwitches] = {verantaLightOut, parvekeLightOut, ykAulaLightOut, ulkoLightOut, ykMH1LightOut, ykPHLightOut, ykMH2LightOut};
     for (int i = 0; i < numSwitches; i++) {
