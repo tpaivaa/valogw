@@ -1,20 +1,21 @@
 #include "Switch.h" // include the header file for the Switch class
 
 const int numSwitches = 7;
-const int verantaLightIn = 2;
-const int parvekeLightIn = 3;
-const int ykAulaLightIn = 4;
-const int ulkoLightIn = 5;
-const int ykMH1LightIn = 6;
-const int ykPHLightIn = 7;
-const int ykMH1LightOut = 8;
-const int ykPHLightOut = 9;
-const int verantaLightOut = 10;
-const int parvekeLightOut = 11;
-const int ykAulaLightOut = 12;
-const int ulkoLightOut = 13;
-const int ykMH2LightIn = 14;
-const int ykMH2LightOut = 15;
+const int verantaLightIn = 22;
+const int parvekeLightIn = 24;
+const int ykAulaLightIn = 26;
+const int ulkoLightIn = 28;
+const int ykMH1LightIn = 30;
+const int ykPHLightIn = 32;
+const int verantaLightOut = 23;
+const int parvekeLightOut = 25;
+const int ykAulaLightOut = 27;
+const int ulkoLightOut = 29;
+const int ykMH1LightOut = 31;
+const int ykPHLightOut = 33;
+
+const int ykMH2LightIn = 34;
+const int ykMH2LightOut = 35;
 
 int switchIds[numSwitches] = {1,2,3,4,5,6,7};
 
@@ -25,7 +26,7 @@ void setup() {
     int inputPins[numSwitches] = {verantaLightIn, parvekeLightIn, ykAulaLightIn, ulkoLightIn, ykMH1LightIn, ykPHLightIn, ykMH2LightIn};
     int outputPins[numSwitches] = {verantaLightOut, parvekeLightOut, ykAulaLightOut, ulkoLightOut, ykMH1LightOut, ykPHLightOut, ykMH2LightOut};
     for (int i = 0; i < numSwitches; i++) {
-        switches[i] = new Switch(inputPins[i], outputPins[i], 100, switchIds[i], switchIds);
+        switches[i] = new Switch(inputPins[i], outputPins[i], 50, switchIds[i], switchIds);
     }
 }
 
