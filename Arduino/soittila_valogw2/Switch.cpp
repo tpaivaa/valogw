@@ -75,17 +75,23 @@ void Switch::printStatus() {
     }
 }
 
-void Switch::printStatusJSON() {
+void Switch::printStatusJSON(int serialID) {
     StaticJsonDocument<200> doc;
+    doc["message"] = "reply";    
     doc["switchId"] = id;
     doc["outputState"] = !outputState;
+    
 
     // Serialize the JSON object
     char buffer[200];
     serializeJson(doc, buffer);
+    if(serialID == 1) {
+      // Send the serialized JSON over the serial port
+      Serial.println(buffer);
+    } else if (serialID == 2) {
+          Serial2.println(buffer);     
+    }
 
-    // Send the serialized JSON over the serial port
-    Serial.println(buffer);
 }
 
 

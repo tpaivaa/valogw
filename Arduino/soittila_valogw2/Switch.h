@@ -20,7 +20,7 @@ class Switch {
     void setOutputState(bool state);
     void toggleOutputState();
     void printStatus();
-    void printStatusJSON();
+    void printStatusJSON(int serialID);
 };
 
 #endif

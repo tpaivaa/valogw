@@ -59,7 +59,7 @@ void handleSerialInput() {
                     } else if (input == 'r') {
                         switches[i]->printStatus();
                     } else if (input == 'j') {
-                        switches[i]->printStatusJSON();
+                        switches[i]->printStatusJSON(1);
                     }
                 }
             }
@@ -75,21 +75,28 @@ void handleSerialInput() {
         input[i] = '\0';
         DynamicJsonDocument jsonDoc(1024);
         DeserializationError error = deserializeJson(jsonDoc, input);
+        //serializeJsonPretty(jsonDoc, Serial2);
         if (!error) {
             int switchId = jsonDoc["switchId"];
             String outputStateString = jsonDoc["outputState"];
-            for (int i = 0; i < numSwitches; i++) {
-                if (switchIds[i] == switchId) {
-                    if (outputStateString == "1") {
-                        switches[i]->setOutputState(LOW);
-                    } else if (outputStateString == "0") {
-                        switches[i]->setOutputState(HIGH);
-                    } else if (outputStateString == "toggle") {
-                        switches[i]->toggleOutputState();
-                    } else if (outputStateString == "query") {
-                        switches[i]->printStatusJSON();
-                    }
-                }
+            String messageType = jsonDoc["message"];
+            if (messageType == "command") {            
+              for (int i = 0; i < numSwitches; i++) {
+                  if (switchIds[i] == switchId) {
+                      if (outputStateString == "true") {
+                          switches[i]->setOutputState(LOW);
+                          switches[i]->printStatusJSON(2);
+                      } else if (outputStateString == "false") {
+                          switches[i]->setOutputState(HIGH);
+                          switches[i]->printStatusJSON(2);                        
+                      } else if (outputStateString == "toggle") {
+                          switches[i]->toggleOutputState();
+                          switches[i]->printStatusJSON(2);
+                      } else if (outputStateString == "query") {
+                          switches[i]->printStatusJSON(2);
+                      }
+                  }
+              }
             }
         }
     }
