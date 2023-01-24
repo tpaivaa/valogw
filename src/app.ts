@@ -8,6 +8,7 @@ parser.on('data', function (data: string) {
     const input = JSON.parse(data)
     handleInput(input)
   } catch (e) {
+    console.log('in Error')
     console.log(data.toString())
     port.write(switchState(Switches.ykmh1,States.query))
   }
