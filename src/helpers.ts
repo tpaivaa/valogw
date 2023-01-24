@@ -20,13 +20,13 @@ enum States {
 }
 
 enum Switches {
-  veranta = '1',
-  parveke = '2',
-  ykaula = '3',
-  ulko = '4',
-  ykmh1 = '5',
-  ykph = '6',
-  ykmh2 = '7',
+  veranta = 1,
+  parveke = 2,
+  ykaula = 3,
+  ulko = 4,
+  ykmh1 = 5,
+  ykph = 6,
+  ykmh2 = 7,
 }
 
 enum Lights {
