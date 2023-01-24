@@ -9,3 +9,11 @@ here we use serial communication between Arduino and raspberry pi
 
 
 Also, you can use the switchName to control the switch instances through serial input, you will need to send the switchName followed by the command. For example, to toggle the switch with the switchName "switch1", you would send "switch1 t" over the serial connection.
+
+
+Test commands Serial2
+
+{"message":"command","switchId":"1","outputState":"true"}
+{"message":"command","switchId":"1","outputState":"false"}
+{"message":"command","switchId":"1","outputState":"toggle"}
+{"message":"command","switchId":"1","outputState":"query"}
