@@ -3,7 +3,7 @@ import { handleInput, switchState, Switches , States} from './helpers'
 
 
 // Switches the port into "flowing mode"
-parser.on('data', function (data: string) {
+port.on('data', function (data: string) {
   try {
     const input = JSON.parse(data)
     handleInput(input)
