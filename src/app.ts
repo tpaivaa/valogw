@@ -10,6 +10,6 @@ parser.on('data', function (data: string) {
   } catch (e) {
     console.log('in Error')
     console.log(data.toString())
-    port.write(switchState(Switches.ykmh1,States.query))
+    // port.write(switchState(Switches.ykmh1,States.query))
   }
 })
