@@ -1,4 +1,3 @@
-import { port, parser } from 'serial'
 
 enum MessageTypes {
   command = 'command',
