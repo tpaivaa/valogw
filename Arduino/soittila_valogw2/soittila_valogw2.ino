@@ -38,7 +38,7 @@ void loop() {
         switches[i]->update();
     }
     handleSerialInput();
-    delay(100);
+    delay(50);
 }
 
 void handleSerialInput() {
@@ -80,7 +80,7 @@ void handleSerialInput() {
             int switchId = jsonDoc["switchId"];
             String outputStateString = jsonDoc["outputState"];
             String messageType = jsonDoc["message"];
-            if (messageType == "command") {            
+            if (messageType == "command") {
               for (int i = 0; i < numSwitches; i++) {
                   if (switchIds[i] == switchId) {
                       if (outputStateString == "true") {
@@ -88,7 +88,7 @@ void handleSerialInput() {
                           switches[i]->printStatusJSON(2);
                       } else if (outputStateString == "false") {
                           switches[i]->setOutputState(HIGH);
-                          switches[i]->printStatusJSON(2);                        
+                          switches[i]->printStatusJSON(2);
                       } else if (outputStateString == "toggle") {
                           switches[i]->toggleOutputState();
                           switches[i]->printStatusJSON(2);

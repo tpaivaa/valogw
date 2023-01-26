@@ -40,12 +40,13 @@ void Switch::update() {
       if (inputState == LOW) {
         outputState = !outputState;
         digitalWrite(outputPin, outputState);
-        Serial.print("Switch ");
-        Serial.print(id);
+        printStatusJSON(2);
+        // Serial.print("Switch ");
+        // Serial.print(id);
         if (!outputState) {
-            Serial.println(" turned on");
+            // Serial.println(" turned on");
         } else {
-            Serial.println(" turned off");
+            // Serial.println(" turned off");
           }
       }
     }
@@ -58,11 +59,13 @@ void Switch::update() {
 void Switch::setOutputState(bool state) {
     outputState = state;
     digitalWrite(outputPin, outputState);
+    printStatusJSON(2);
 }
 
 void Switch::toggleOutputState() {
     outputState = !outputState;
     digitalWrite(outputPin, outputState);
+    printStatusJSON(2);
 }
 
 void Switch::printStatus() {
@@ -77,10 +80,10 @@ void Switch::printStatus() {
 
 void Switch::printStatusJSON(int serialID) {
     StaticJsonDocument<200> doc;
-    doc["message"] = "reply";    
+    doc["message"] = "reply";
     doc["switchId"] = id;
     doc["outputState"] = !outputState;
-    
+
 
     // Serialize the JSON object
     char buffer[200];
@@ -89,7 +92,7 @@ void Switch::printStatusJSON(int serialID) {
       // Send the serialized JSON over the serial port
       Serial.println(buffer);
     } else if (serialID == 2) {
-          Serial2.println(buffer);     
+          Serial2.println(buffer);
     }
 
 }
