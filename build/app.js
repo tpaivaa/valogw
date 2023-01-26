@@ -11,6 +11,6 @@ serial_1.parser.on('data', function (data) {
     catch (e) {
         console.log('in Error');
         console.log(data.toString());
-        serial_1.port.write((0, helpers_1.switchState)(helpers_1.Switches.ykmh1, helpers_1.States.query));
+        // port.write(switchState(Switches.ykmh1,States.query))
     }
 });
