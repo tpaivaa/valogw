@@ -85,13 +85,10 @@ void handleSerialInput() {
                   if (switchIds[i] == switchId) {
                       if (outputStateString == "true") {
                           switches[i]->setOutputState(LOW);
-                          switches[i]->printStatusJSON(2);
                       } else if (outputStateString == "false") {
                           switches[i]->setOutputState(HIGH);
-                          switches[i]->printStatusJSON(2);
                       } else if (outputStateString == "toggle") {
                           switches[i]->toggleOutputState();
-                          switches[i]->printStatusJSON(2);
                       } else if (outputStateString == "query") {
                           switches[i]->printStatusJSON(2);
                       }
