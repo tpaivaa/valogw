@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Lights = exports.States = exports.Switches = exports.OutputStates = exports.MessageTypes = void 0;
+exports.Switch = exports.Lights = exports.States = exports.Switches = exports.OutputStates = exports.MessageTypes = void 0;
 var MessageTypes;
 (function (MessageTypes) {
     MessageTypes["command"] = "command";
@@ -34,6 +34,17 @@ var Switches;
     Switches[Switches["ykmh2"] = 7] = "ykmh2";
 })(Switches || (Switches = {}));
 exports.Switches = Switches;
+var Switch;
+(function (Switch) {
+    Switch["veranta"] = "veranta";
+    Switch["parveke"] = "parveke";
+    Switch["ykaula"] = "ykaula";
+    Switch["ulko"] = "ulko";
+    Switch["ykmh1"] = "ykmh1";
+    Switch["ykph"] = "ykph";
+    Switch["ykmh2"] = "ykmh2";
+})(Switch || (Switch = {}));
+exports.Switch = Switch;
 var Lights;
 (function (Lights) {
     Lights[Lights["Veranta"] = 0] = "Veranta";

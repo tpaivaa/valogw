@@ -26,6 +26,15 @@ enum Switches {
   ykph = 6,
   ykmh2 = 7,
 }
+enum Switch {
+  veranta = 'veranta',
+  parveke = 'parveke',
+  ykaula = 'ykaula',
+  ulko = 'ulko',
+  ykmh1 = 'ykmh1',
+  ykph = 'ykph',
+  ykmh2 = 'ykmh2',
+}
 
 enum Lights {
   Veranta,
@@ -44,5 +53,6 @@ export {
   OutputStates,
   Switches,
   States,
-  Lights
+  Lights,
+  Switch
 }
