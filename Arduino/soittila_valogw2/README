@@ -17,3 +17,13 @@ Test commands Serial2
 {"message":"command","switchId":"1","outputState":"false"}
 {"message":"command","switchId":"1","outputState":"toggle"}
 {"message":"command","switchId":"1","outputState":"query"}
+
+
+MQTT
+
+PUBLISH ('cmnd/light/veranta/POWER') // Turn veranta light off
+OFF
+
+PUBLISH ('cmnd/light/veranta/POWER') // Turn veranta light on
+ON
+

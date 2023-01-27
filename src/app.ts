@@ -1,5 +1,6 @@
 import { port, parser } from './serial'
-import { handleInput, switchState, Switches , States} from './helpers'
+import { handleInput, switchState } from './helpers'
+
 
 
 // Switches the port into "flowing mode"

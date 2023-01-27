@@ -1,0 +1,84 @@
+
+    - unique_id: veranta_light
+      name: "veranta"
+      state_topic: "stat/light/veranta/RESULT"
+      command_topic: "cmnd/light/veranta/POWER"
+      state_value_template: "{{ value_json.POWER }}"
+      qos: 1
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      retain: false
+
+    - unique_id: parveke_light
+      name: "parveke"
+      state_topic: "stat/light/parveke/RESULT"
+      command_topic: "cmnd/light/parveke/POWER"
+      state_value_template: "{{ value_json.POWER }}"
+      qos: 1
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      retain: false
+
+    - unique_id: ykaula_light
+      name: "ykaula"
+      state_topic: "stat/light/ykaula/RESULT"
+      command_topic: "cmnd/light/ykaula/POWER"
+      state_value_template: "{{ value_json.POWER }}"
+      qos: 1
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      retain: false
+
+    - unique_id: ulko_light
+      name: "ulko"
+      state_topic: "stat/light/ulko/RESULT"
+      command_topic: "cmnd/light/ulko/POWER"
+      state_value_template: "{{ value_json.POWER }}"
+      qos: 1
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      retain: false
+
+    - unique_id: ykmh1_light
+      name: "ykmh1"
+      state_topic: "stat/light/ykmh1/RESULT"
+      command_topic: "cmnd/light/ykmh1/POWER"
+      state_value_template: "{{ value_json.POWER }}"
+      qos: 1
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      retain: false
+
+    - unique_id: ykph_light
+      name: "ykph"
+      state_topic: "stat/light/ykph/RESULT"
+      command_topic: "cmnd/light/ykph/POWER"
+      state_value_template: "{{ value_json.POWER }}"
+      qos: 1
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      retain: false
+
+    - unique_id: ykmh2_light
+      name: "ykmh2"
+      state_topic: "stat/light/ykmh2/RESULT"
+      command_topic: "cmnd/light/ykmh2/POWER"
+      state_value_template: "{{ value_json.POWER }}"
+      qos: 1
+      payload_on: 'ON'
+      payload_off: 'OFF'
+      payload_available: "Online"
+      payload_not_available: "Offline"
+      retain: false
