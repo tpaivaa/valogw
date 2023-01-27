@@ -1,4 +1,7 @@
 {
+  "name": "valogw",
+  "description": "valogw serial and Mqtt gateway",
+  "version": "0.0.1",
   "scripts": {
     "save": "tsc && git commit -am'save changes' && git push"
   },
