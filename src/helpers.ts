@@ -1,5 +1,5 @@
 import { client } from './mqtt'
-
+import { port, parser } from './serial'
 import {
   MessageTypes,
   OutputStates,
@@ -31,16 +31,6 @@ const handleInput = (input: string) => {
   const inputData: SerialData = JSON.parse(input)
   if (inputData.message === MessageTypes.reply) {
     publishSwitchState(inputData)
-  }
-
-  console.log(inputData.outputState)
-  switch (inputData.outputState) {
-    case true:
-      console.log('Switch %d id %s', inputData.switchId, 'on')
-      break
-    case false:
-      console.log('Switch %d id %s', inputData.switchId, 'off')
-      break
   }
 }
 
@@ -74,7 +64,21 @@ const publishSwitchState = (serialData : SerialData) => {
   })
 }
 
+const handleMQTTMessages = (topic: string, payload: string) => {
+  switch (topic.split('/')[0]) { // topic is 'stat/light/parveke/RESULT' or 'cmnd/light/veranta/POWER'
+    case 'stat':
+      // payload {"message":"reply","switchId":7,"outputState":false,"POWER":"OFF"}
+      break
+    case 'cmnd':
+      // payload is 'ON' or 'OFF'
+      // in this case we should write to serial the payload
+      port.write(payload.toString())
+  }
+}
+
+
 export {
   handleInput,
   switchState,
+  handleMQTTMessages,
 }

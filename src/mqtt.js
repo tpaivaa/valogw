@@ -13,21 +13,16 @@ const client = mqtt.connect(connectUrl, {
   reconnectPeriod: 1000,
 })
 
-const sub_topic = 'stat/light/#'
-const pub_topic = 'cmnd/light/veranta/POWER'
+const stat_topic = 'stat/light/#'
+const cmnd_topic = 'cmnd/light/#'
 client.on('connect', () => {
-  console.log('Connected')
-  client.subscribe([sub_topic], () => {
-    console.log(`Subscribe to topic '${sub_topic}'`)
+  console.log('MQTT Connected')
+  client.subscribe([stat_topic], () => {
+    console.log(`Subscribed to topic '${stat_topic}'`)
   })
-  client.publish(pub_topic, 'ON', { qos: 1, retain: false }, (error) => {
-    if (error) {
-      console.error(error)
-    }
+  client.subscribe([cmnd_topic], () => {
+    console.log(`Subscribed to topic '${cmnd_topic}'`)
   })
-})
-client.on('message', (topic, payload) => {
-  console.log('Received Message:', topic, payload.toString())
 })
 
 // Handle errors

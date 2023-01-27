@@ -1,5 +1,5 @@
 import { port, parser } from './serial'
-import { handleInput, switchState } from './helpers'
+import { handleInput, switchState, handleMQTTMessages } from './helpers'
 import { client } from './mqtt'
 
 
@@ -22,3 +22,10 @@ parser.on('data', function (data: string) {
 client.on("error", (error) => {
   console.log("Error occurred: " + error);
 });
+
+// Handle MQTT messages
+client.on('message', (topic, payload) => {
+  console.log('Received Message:', topic, payload.toString())
+  handleMQTTMessages(topic, payload)
+
+})

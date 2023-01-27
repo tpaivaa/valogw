@@ -21,3 +21,8 @@ serial_1.parser.on('data', function (data) {
 mqtt_1.client.on("error", (error) => {
     console.log("Error occurred: " + error);
 });
+// Handle MQTT messages
+mqtt_1.client.on('message', (topic, payload) => {
+    console.log('Received Message:', topic, payload.toString());
+    (0, helpers_1.handleMQTTMessages)(topic, payload);
+});

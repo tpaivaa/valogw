@@ -1,22 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.switchState = exports.handleInput = void 0;
+exports.handleMQTTMessages = exports.switchState = exports.handleInput = void 0;
 const mqtt_1 = require("./mqtt");
+const serial_1 = require("./serial");
 const appEnums_1 = require("./appEnums");
 const switches = ['null', 'veranta', 'parveke', 'ykaula', 'ulko', 'ykmh1', 'ykph', 'ykmh2'];
 const handleInput = (input) => {
     const inputData = JSON.parse(input);
     if (inputData.message === appEnums_1.MessageTypes.reply) {
         publishSwitchState(inputData);
-    }
-    console.log(inputData.outputState);
-    switch (inputData.outputState) {
-        case true:
-            console.log('Switch %d id %s', inputData.switchId, 'on');
-            break;
-        case false:
-            console.log('Switch %d id %s', inputData.switchId, 'off');
-            break;
     }
 };
 exports.handleInput = handleInput;
@@ -50,3 +42,15 @@ const publishSwitchState = (serialData) => {
         }
     });
 };
+const handleMQTTMessages = (topic, payload) => {
+    switch (topic.split('/')[0]) { // topic is 'stat/light/parveke/RESULT' or 'cmnd/light/veranta/POWER'
+        case 'stat':
+            // payload {"message":"reply","switchId":7,"outputState":false,"POWER":"OFF"}
+            break;
+        case 'cmnd':
+            // payload is 'ON' or 'OFF'
+            // in this case we should write to serial the payload
+            serial_1.port.write(payload.toString());
+    }
+};
+exports.handleMQTTMessages = handleMQTTMessages;
