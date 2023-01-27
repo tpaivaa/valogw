@@ -13,8 +13,6 @@ const client = mqtt.connect(connectUrl, {
   reconnectPeriod: 1000,
 })
 
-
-
 const sub_topic = 'stat/light/#'
 const pub_topic = 'cmnd/light/veranta/POWER'
 client.on('connect', () => {

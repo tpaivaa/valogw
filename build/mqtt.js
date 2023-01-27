@@ -11,4 +11,32 @@ const client = mqtt.connect(connectUrl, {
     password: process.env.MQTT_PASS,
     reconnectPeriod: 1000,
 });
+const sub_topic = 'stat/light/#';
+const pub_topic = 'cmnd/light/veranta/POWER';
+client.on('connect', () => {
+    console.log('Connected');
+    client.subscribe([sub_topic], () => {
+        console.log(`Subscribe to topic '${sub_topic}'`);
+    });
+    client.publish(pub_topic, 'ON', { qos: 1, retain: false }, (error) => {
+        if (error) {
+            console.error(error);
+        }
+    });
+});
+client.on('message', (topic, payload) => {
+    console.log('Received Message:', topic, payload.toString());
+});
+// Handle errors
+client.on("error", function (error) {
+    console.log("Error occurred: " + error);
+});
+// Notify reconnection
+client.on("reconnect", function () {
+    console.log("Reconnection starting");
+});
+// Notify offline status
+client.on("offline", function () {
+    console.log("Currently offline. Please check internet!");
+});
 module.exports = { client };
