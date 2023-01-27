@@ -7,7 +7,9 @@ import { client } from './mqtt'
 // Switches the port into "flowing mode"
 parser.on('data', function (data: string) {
   try {
+    console.log(require('util').inspect(data, { showHidden: true, depth: null }));
     const input = JSON.parse(data)
+    console.dir(input)
     handleInput(input)
   } catch (e) {
     console.log('in Error')

@@ -6,7 +6,9 @@ const mqtt_1 = require("./mqtt");
 // Switches the port into "flowing mode"
 serial_1.parser.on('data', function (data) {
     try {
+        console.log(require('util').inspect(data, { showHidden: true, depth: null }));
         const input = JSON.parse(data);
+        console.dir(input);
         (0, helpers_1.handleInput)(input);
     }
     catch (e) {

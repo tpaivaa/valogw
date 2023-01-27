@@ -16,7 +16,7 @@ interface SerialData {
   POWER: string;
 }
 
-type State {
+type State = {
   message: string,
   switchId: number,
   outputState: boolean,
