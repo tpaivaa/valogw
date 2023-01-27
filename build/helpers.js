@@ -45,7 +45,7 @@ var Lights;
 exports.Lights = Lights;
 const handleInput = (input) => {
     const inputData = JSON.parse(input);
-    console.log(inputData);
+    console.log(inputData.outputState);
     switch (inputData.outputState) {
         case 'true':
             console.log('Switch %d id %s', inputData.switchId, 'on');
