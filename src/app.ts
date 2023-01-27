@@ -15,3 +15,8 @@ parser.on('data', function (data: string) {
     // port.write(switchState(Switches.ykmh1,States.query))
   }
 })
+
+// Handle errors
+client.on("error", (error) => {
+  console.log("Error occurred: " + error);
+});
