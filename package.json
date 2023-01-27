@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "save": "tsc && git commit -am'save changes' && git push"
+  },
   "dependencies": {
     "mqtt": "^4.3.7",
     "serialport": "^10.4.0"
