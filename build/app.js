@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const serial_1 = require("./serial");
 const helpers_1 = require("./helpers");
-require("./mqtt");
 // Switches the port into "flowing mode"
 serial_1.parser.on('data', function (data) {
     try {

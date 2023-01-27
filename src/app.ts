@@ -1,6 +1,6 @@
 import { port, parser } from './serial'
 import { handleInput, switchState } from './helpers'
-import './mqtt'
+import { client } from './mqtt'
 
 
 
