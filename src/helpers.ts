@@ -24,7 +24,7 @@ type State = {
 }
 
 
-const switches = ['veranta','parveke','ykaula','ulko','ykmh1','ykph','ykmh2']
+const switches = ['null','veranta','parveke','ykaula','ulko','ykmh1','ykph','ykmh2']
 
 
 const handleInput = (input: string) => {

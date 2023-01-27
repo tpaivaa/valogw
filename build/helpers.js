@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.switchState = exports.handleInput = void 0;
 const mqtt_1 = require("./mqtt");
 const appEnums_1 = require("./appEnums");
-const switches = ['veranta', 'parveke', 'ykaula', 'ulko', 'ykmh1', 'ykph', 'ykmh2'];
+const switches = ['null', 'veranta', 'parveke', 'ykaula', 'ulko', 'ykmh1', 'ykph', 'ykmh2'];
 const handleInput = (input) => {
     const inputData = JSON.parse(input);
     if (inputData.message === appEnums_1.MessageTypes.reply) {
