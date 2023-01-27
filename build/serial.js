@@ -21,5 +21,5 @@ port.on('open', function () {
     // open logic
     console.log('Serial port is open');
 });
-const parser = port.pipe(new parser_readline_1.ReadlineParser({ delimiter: '\n' }));
+const parser = port.pipe(new parser_readline_1.ReadlineParser({ delimiter: '\r\n' }));
 exports.parser = parser;

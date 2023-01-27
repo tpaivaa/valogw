@@ -23,6 +23,6 @@ port.on('open', function() {
 })
 
 
-const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }))
+const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }))
 
 export {port , parser}
