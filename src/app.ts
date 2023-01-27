@@ -10,7 +10,7 @@ parser.on('data', function (data: string) {
     console.log(require('util').inspect(data, { showHidden: true, depth: null }));
     const input = JSON.parse(data)
     console.dir(input)
-    handleInput(input)
+    handleInput(data)
   } catch (e) {
     console.log('in Error')
     console.log(data.toString())

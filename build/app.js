@@ -9,7 +9,7 @@ serial_1.parser.on('data', function (data) {
         console.log(require('util').inspect(data, { showHidden: true, depth: null }));
         const input = JSON.parse(data);
         console.dir(input);
-        (0, helpers_1.handleInput)(input);
+        (0, helpers_1.handleInput)(data);
     }
     catch (e) {
         console.log('in Error');
