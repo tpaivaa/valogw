@@ -64,7 +64,7 @@ const publishSwitchState = (serialData : SerialData) => {
   })
 }
 
-const handleMQTTMessages = (topic: string, payload: string) => {
+const handleMQTTMessages = (topic: string, payload: Buffer) => {
   switch (topic.split('/')[0]) { // topic is 'stat/light/parveke/RESULT' or 'cmnd/light/veranta/POWER'
     case 'stat':
       // payload {"message":"reply","switchId":7,"outputState":false,"POWER":"OFF"}
