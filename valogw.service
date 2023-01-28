@@ -6,8 +6,8 @@ After=network.target
 [Service]
 Type=simple
 User=runner
-ExecStart=/usr/local/bin/node app.js
 WorkingDirectory=/home/runner/valogw/build
+ExecStart=/usr/bin/node app.js
 Restart=on-failure
 
 [Install]
