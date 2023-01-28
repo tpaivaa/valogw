@@ -25,6 +25,7 @@ type State = {
 
 
 const switches = ['null','veranta','parveke','ykaula','ulko','ykmh1','ykph','ykmh2']
+const switchesMQTT: Record<string, number> = {veranta:1,parveke:2,ykaula:3,ulko:4,ykmh1:5,ykph:6,ykmh2:7}
 
 
 const handleInput = (input: string) => {
@@ -64,6 +65,17 @@ const publishSwitchState = (serialData : SerialData) => {
   })
 }
 
+const publishStat = (topic: string, payload: Buffer) => { // something like this stat/light/ykph/RESULT {"message":"reply","switchId":6,"outputState":false,"POWER":"OFF"}
+  topic = topic.replace('cmnd','stat').replace('POWER','RESULT')
+  const statPayload: string = `{"POWER":"${payload.toString()}"}`
+
+  client.publish(topic, statPayload, { qos: 1, retain: false }, (error) => {
+    if (error) {
+      console.error(error)
+    }
+  })
+}
+
 const handleMQTTMessages = (topic: string, payload: Buffer) => {
   console.log('before switch: ', topic.split('/')[0] )
   switch (topic.split('/')[0]) { // topic is 'stat/light/parveke/RESULT' or 'cmnd/light/veranta/POWER'
@@ -76,13 +88,26 @@ const handleMQTTMessages = (topic: string, payload: Buffer) => {
       // payload is 'ON' or 'OFF'
       // in this case we should write to serial the payload
       console.log('in switch case: cmnd' )
-      console.log(payload)
-      console.log(payload.toString())
-      port.write(payload.toString())
+      port.write(gatherPayload(topic, payload))
+      publishStat(topic, payload)
       break
   }
 }
 
+const gatherPayload = (topic: string, payload: Buffer) => {
+  // topic.split('/')[2] is getting string from the 'cmnd/light/ykph/POWER' in this example its 'ykph'
+  const switchID: number = switchesMQTT[topic.split('/')[2]]
+  return createSerialCommand(switchID, payload)
+}
+
+const createSerialCommand = (switchID: number, payload: Buffer) => {
+  switch (payload.toString()) {
+    case 'ON':
+      return `{"message":"command","switchId":${switchID},"outputState":true,"POWER":${payload.toString()}`
+    case 'OFF':
+      return `{"message":"command","switchId":${switchID},"outputState":true,"POWER":${payload.toString()}`
+  }
+}
 
 export {
   handleInput,
