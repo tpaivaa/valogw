@@ -77,7 +77,7 @@ const publishStat = (topic: string, payload: Buffer) => { // something like this
 }
 
 const handleMQTTMessages = (topic: string, payload: Buffer) => {
-  console.log('before switch: ', topic.split('/')[0] )
+
   switch (topic.split('/')[0]) { // topic is 'stat/light/parveke/RESULT' or 'cmnd/light/veranta/POWER'
 
     case 'stat':
@@ -103,9 +103,9 @@ const gatherPayload = (topic: string, payload: Buffer) => {
 const createSerialCommand = (switchID: number, payload: Buffer) => {
   switch (payload.toString()) {
     case 'ON':
-      return `{"message":"command","switchId":${switchID},"outputState":true,"POWER":${payload.toString()}`
+      return `{"message":"command","switchId":${switchID},"outputState":true}`
     case 'OFF':
-      return `{"message":"command","switchId":${switchID},"outputState":true,"POWER":${payload.toString()}`
+      return `{"message":"command","switchId":${switchID},"outputState":false}`
   }
 }
 

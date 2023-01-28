@@ -53,7 +53,6 @@ const publishStat = (topic, payload) => {
     });
 };
 const handleMQTTMessages = (topic, payload) => {
-    console.log('before switch: ', topic.split('/')[0]);
     switch (topic.split('/')[0]) { // topic is 'stat/light/parveke/RESULT' or 'cmnd/light/veranta/POWER'
         case 'stat':
             console.log('in switch case: stat ');
@@ -77,8 +76,8 @@ const gatherPayload = (topic, payload) => {
 const createSerialCommand = (switchID, payload) => {
     switch (payload.toString()) {
         case 'ON':
-            return `{"message":"command","switchId":${switchID},"outputState":true,"POWER":${payload.toString()}`;
+            return `{"message":"command","switchId":${switchID},"outputState":true}`;
         case 'OFF':
-            return `{"message":"command","switchId":${switchID},"outputState":true,"POWER":${payload.toString()}`;
+            return `{"message":"command","switchId":${switchID},"outputState":false}`;
     }
 };
