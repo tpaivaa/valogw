@@ -7,7 +7,7 @@ After=network.target
 Type=simple
 User=runner
 ExecStart=/usr/local/bin/node app.js
-WorkingDirectory=/home/runner/valogw/
+WorkingDirectory=/home/runner/valogw/build
 Restart=on-failure
 
 [Install]
