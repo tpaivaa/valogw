@@ -46,13 +46,15 @@ const handleMQTTMessages = (topic, payload) => {
     console.log('before switch: ', topic.split('/')[0]);
     switch (topic.split('/')[0]) { // topic is 'stat/light/parveke/RESULT' or 'cmnd/light/veranta/POWER'
         case 'stat':
-            console.log('in switch case: ', topic.split('/')[0]);
+            console.log('in switch case: stat ');
             // payload {"message":"reply","switchId":7,"outputState":false,"POWER":"OFF"}
             break;
         case 'cmnd':
             // payload is 'ON' or 'OFF'
             // in this case we should write to serial the payload
-            console.log('in switch case: ', topic.split('/')[0]);
+            console.log('in switch case: cmnd');
+            console.log(payload);
+            console.log(payload.toString());
             serial_1.port.write(payload.toString());
             break;
     }
