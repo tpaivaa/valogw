@@ -3,7 +3,7 @@
   "description": "valogw serial and Mqtt gateway",
   "version": "0.0.1",
   "scripts": {
-    "save": "tsc && git commit -am'save changes' && git push"
+    "save": "npx tsc && git commit -am'save changes' && git push"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
